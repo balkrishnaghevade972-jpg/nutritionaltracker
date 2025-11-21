@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Women's Nutrition Tracker</title>
+<title>Women's Nutrition Tracker - Home</title>
 <style>
-/* ==== Inline CSS ==== */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -19,153 +18,57 @@ header {
   color: #fff;
 }
 nav {
+  text-align: center;
   margin-top: 10px;
 }
-nav button {
-  padding: 10px 20px;
-  margin: 5px;
+nav a {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 25px;
   background-color: #ff8fa3;
-  border: none;
   color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 18px;
   transition: 0.3s;
 }
-nav button:hover { background-color: #ff4757; }
+nav a:hover { background-color: #ff4757; }
 .container {
   padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
-.card {
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 20px;
-  margin: 15px 0;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  width: 100%;
-  max-width: 400px;
-}
-h2 { margin-top: 0; text-align: center; color: #ff4757; }
-input, select {
-  padding: 10px;
-  margin: 10px 0;
-  width: calc(100% - 22px);
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-button.action-btn {
-  padding: 10px 20px;
-  background-color: #ff6b81;
+button {
+  padding: 15px 30px;
+  font-size: 18px;
   border: none;
+  border-radius: 10px;
+  background-color: #ff6b81;
   color: #fff;
-  border-radius: 8px;
   cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
 }
-button.action-btn:hover { background-color: #ff4757; }
-#log p {
-  margin: 5px 0;
-  font-weight: bold;
-}
+button:hover { background-color: #ff4757; }
 </style>
 </head>
 <body>
+
 <header>
   <h1>Women's Nutrition Tracker</h1>
-  <nav>
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('tracker')">Tracker</button>
-    <button onclick="showSection('alerts')">Food Alerts</button>
-  </nav>
 </header>
 
+<nav>
+  <a href="index.html">Home</a>
+  <a href="tracker.html">Tracker</a>
+  <a href="food-alerts.html">Food Alerts</a>
+</nav>
+
 <div class="container">
-
-  <!-- Home Section -->
-  <div id="home" class="card">
-    <h2>Welcome!</h2>
-    <p>Track your daily nutrition, receive food alerts, and get reminders to log your meals.</p>
-    <button class="action-btn" onclick="alert('Welcome! Stay healthy 💪')">Click for Welcome Alert</button>
-  </div>
-
-  <!-- Tracker Section -->
-  <div id="tracker" class="card" style="display:none;">
-    <h2>Nutrition Tracker</h2>
-    <input type="text" id="food" placeholder="Food Name">
-    <input type="number" id="calories" placeholder="Calories">
-    <button class="action-btn" onclick="addFood()">Add Food</button>
-    <div id="log"></div>
-  </div>
-
-  <!-- Alerts Section -->
-  <div id="alerts" class="card" style="display:none;">
-    <h2>Food Alerts</h2>
-    <button class="action-btn" onclick="alertFood('High Sugar')">High Sugar Alert</button>
-    <button class="action-btn" onclick="alertFood('Too Fatty')">Fatty Food Alert</button>
-    <button class="action-btn" onclick="alertFood('Low Protein')">Low Protein Alert</button>
-  </div>
-
+  <h2>Welcome, Moms!</h2>
+  <p>This app helps you track your daily nutrition easily and reminds you to log your meals.</p>
+  <button onclick="alert('Welcome! Stay healthy and happy! 💖')">Click for Welcome Alert</button>
 </div>
-
-<script>
-// ==== Navigation ====
-function showSection(sectionId) {
-  ['home','tracker','alerts'].forEach(id => {
-    document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
-  });
-}
-
-// ==== Tracker ====
-let foodLog = [];
-function addFood() {
-  const food = document.getElementById("food").value;
-  const calories = document.getElementById("calories").value;
-  if (!food || !calories) {
-    alert("Please enter both food and calories!");
-    return;
-  }
-  foodLog.push({food, calories});
-  document.getElementById("log").innerHTML = foodLog.map(f => `<p>${f.food} - ${f.calories} kcal</p>`).join('');
-  alert(`${food} added with ${calories} calories!`);
-  document.getElementById("food").value = "";
-  document.getElementById("calories").value = "";
-}
-
-// ==== Food Alerts ====
-function alertFood(type) {
-  switch(type) {
-    case 'High Sugar':
-      alert("⚠️ Warning: This food is high in sugar!");
-      break;
-    case 'Too Fatty':
-      alert("⚠️ Warning: This food is high in fat!");
-      break;
-    case 'Low Protein':
-      alert("⚠️ Note: This food is low in protein!");
-      break;
-  }
-}
-
-// ==== Food Intake Reminders ====
-function setFoodReminders() {
-  // Example: remind at 9am, 1pm, 7pm
-  const reminders = ["09:00", "13:00", "19:00"];
-  reminders.forEach(time => {
-    const now = new Date();
-    const reminderTime = new Date();
-    const [hours, minutes] = time.split(":");
-    reminderTime.setHours(hours, minutes, 0, 0);
-    let delay = reminderTime - now;
-    if (delay < 0) delay += 24*60*60*1000; // next day
-    setTimeout(function repeatReminder() {
-      alert(`⏰ Time to log your meal!`);
-      setTimeout(repeatReminder, 24*60*60*1000); // repeat daily
-    }, delay);
-  });
-}
-setFoodReminders();
-</script>
 
 </body>
 </html>
+
