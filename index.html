@@ -1,104 +1,127 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Women's Nutrition Tracker - Home</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: linear-gradient(135deg, #ffecd2, #fcb69f);
-  color: #333;
-}
-header {
-  background-color: #ff6b81;
-  padding: 20px;
-  text-align: center;
-  color: #fff;
-}
-nav {
-  text-align: center;
-  margin-top: 10px;
-}
-nav a {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 25px;
-  background-color: #ff8fa3;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 10px;
-  font-size: 18px;
-  transition: 0.3s;
-}
-nav a:hover { background-color: #ff4757; }
-.container {
-  padding: 30px 20px;
-  text-align: center;
-}
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background-color: #ff6b81;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s;
-}
-button:hover { background-color: #ff4757; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nutrition Tracker</title>
+  <style>
+    /* Clean, minimalist UI */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    nav a:hover {
+      background-color: rgba(0, 123, 255, 0.1);
+    }
+    .container {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .container h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .container p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Women's Nutrition Tracker</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tracker.html">Tracker</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>Women's Nutrition Tracker</h1>
-</header>
+  <div class="container">
+    <h2>Welcome, Moms!</h2>
+    <p>
+      This tracker helps you log your meals and gives timely diet reminders throughout the day — like hydration alerts, snack time, and meal reminders.
+    </p>
+    <button onclick="alert('Welcome! Stay healthy 💪')">Show Welcome Message</button>
+  </div>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="tracker.html">Tracker</a>
-</nav>
+  <script>
+    // Diet reminder schedule
+    const reminders = [
+      { time: "07:30", message: "Good morning! 🌞 Drink a glass of water 💧" },
+      { time: "08:00", message: "Breakfast time 🍳 – include protein and fiber" },
+      { time: "10:30", message: "Snack time 🍎 – have something light" },
+      { time: "12:30", message: "Lunch time 🍲 – try a balanced plate" },
+      { time: "15:30", message: "Afternoon snack 🍌 – fruits or nuts are good" },
+      { time: "17:30", message: "Drink water 💧 – stay hydrated" },
+      { time: "19:00", message: "Dinner time 🍛 – eat something light" },
+      { time: "21:30", message: "Relax with a warm drink 🥛 – wind down" }
+    ];
 
-<div class="container">
-  <h2>Welcome, Moms!</h2>
-  <p>This app helps you track your meals and gives diet reminders throughout the day.</p>
-  <button onclick="alert('Welcome! Stay healthy and happy! 💖')">Click for Welcome Alert</button>
-</div>
+    function scheduleReminders() {
+      reminders.forEach(rem => {
+        const now = new Date();
+        const [h, m] = rem.time.split(":");
+        let alertTime = new Date();
+        alertTime.setHours(h, m, 0, 0);
+        let delay = alertTime - now;
+        if (delay < 0) delay += 24 * 60 * 60 * 1000;
+        setTimeout(function repeat() {
+          alert(rem.message);
+          setTimeout(repeat, 24 * 60 * 60 * 1000);
+        }, delay);
+      });
+    }
 
-<script>
-// ==== Diet Reminders ====
-const reminders = [
-  { time: "07:30", message: "Good morning! 🌞 Drink a glass of water 💧" },
-  { time: "08:00", message: "Breakfast time 🍳 – include protein and fiber" },
-  { time: "10:30", message: "Snack time 🍎 – fruits or nuts are recommended" },
-  { time: "12:30", message: "Lunch time 🍲 – balanced meal with protein, carbs, veggies" },
-  { time: "15:30", message: "Snack alert 🍌 – fruits, yogurt, or nuts" },
-  { time: "17:30", message: "Drink water 💧 – stay hydrated" },
-  { time: "19:00", message: "Dinner time 🍛 – lighter meal recommended" },
-  { time: "21:30", message: "Relaxation drink 🥛 – warm milk or herbal tea" }
-];
-
-function scheduleReminders() {
-  reminders.forEach(reminder => {
-    const now = new Date();
-    const [hour, minute] = reminder.time.split(":");
-    let reminderTime = new Date();
-    reminderTime.setHours(hour, minute, 0, 0);
-    let delay = reminderTime - now;
-    if (delay < 0) delay += 24 * 60 * 60 * 1000; // schedule for next day if past
-    setTimeout(function repeat() {
-      alert(reminder.message);
-      setTimeout(repeat, 24 * 60 * 60 * 1000); // repeat daily
-    }, delay);
-  });
-}
-scheduleReminders();
-</script>
-
+    scheduleReminders();
+  </script>
 </body>
 </html>
+
+
 
