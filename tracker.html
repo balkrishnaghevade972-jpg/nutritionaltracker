@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Women's Nutrition Tracker - Tracker</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #ffe6f0;
+  color: #333;
+}
+header {
+  background-color: #ff6b81;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+}
+nav { text-align: center; margin-top: 10px; }
+nav a {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 25px;
+  background-color: #ff8fa3;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+nav a:hover { background-color: #ff4757; }
+.container { padding: 30px 20px; text-align: center; }
+input {
+  padding: 12px;
+  margin: 10px 0;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff6b81;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background-color: #ff4757; }
+#log {
+  margin-top: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+#log p { margin: 5px 0; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nutrition Tracker</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="tracker.html">Tracker</a>
+</nav>
+
+<div class="container">
+  <h2>Log Your Meals</h2>
+  <input type="text" id="food" placeholder="Food Name">
+  <input type="number" id="calories" placeholder="Calories">
+  <br>
+  <button onclick="addFood()">Add Food</button>
+
+  <div id="log"></div>
+</div>
+
+<script>
+let foodLog = [];
+
+function addFood() {
+  const food = document.getElementById("food").value;
+  const calories = document.getElementById("calories").value;
+  if (!food || !calories) {
+    alert("Please enter both food and calories!");
+    return;
+  }
+  foodLog.push({food, calories});
+  document.getElementById("log").innerHTML = foodLog.map(f => `<p>${f.food} - ${f.calories} kcal</p>`).join('');
+  alert(`${food} added with ${calories} calories!`);
+  document.getElementById("food").value = "";
+  document.getElementById("calories").value = "";
+}
+
+// Optional: repeated reminders in tracker page as well
+const trackerReminders = [
+  { time: "09:00", message: "Drink water 💧" },
+  { time: "11:00", message: "Time for a snack 🍎" },
+  { time: "14:00", message: "Drink water 💧" }
+];
+function scheduleTrackerReminders() {
+  trackerReminders.forEach(reminder => {
+    const now = new Date();
+    const [hour, minute] = reminder.time.split(":");
+    let reminderTime = new Date();
+    reminderTime.setHours(hour, minute, 0, 0);
+    let delay = reminderTime - now;
+    if (delay < 0) delay += 24*60*60*1000; // next day
+    setTimeout(function repeat() {
+      alert(reminder.message);
+      setTimeout(repeat, 24*60*60*1000);
+    }, delay);
+  });
+}
+scheduleTrackerReminders();
+</script>
+
+</body>
+</html>
